@@ -40,7 +40,7 @@ public class CustomRequestQueueVolley {
                     @Override
                     public Bitmap getBitmap(String url) {
                         Bitmap bitmap = cache.get(url);
-                        Log.d(TAG,"The url and bitmap get from cache are: "+url+" "+bitmap);
+                        //Log.d(TAG,"The url and bitmap get from cache are: "+url+" "+bitmap);
                         return bitmap;
                     }
                     /*
@@ -49,7 +49,7 @@ public class CustomRequestQueueVolley {
                     @Override
                     public void putBitmap(String url, Bitmap bitmap) {
                         cache.put(url, bitmap);
-                        Log.d(TAG,"The url and bitmap put into cache are: "+url+" "+bitmap);
+                        //Log.d(TAG,"The url and bitmap put into cache are: "+url+" "+bitmap);
                     }
                 });
     }

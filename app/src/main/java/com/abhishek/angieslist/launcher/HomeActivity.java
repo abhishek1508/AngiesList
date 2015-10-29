@@ -3,6 +3,7 @@ package com.abhishek.angieslist.launcher;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -32,16 +33,16 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
-public class HomeActivity extends AppCompatActivity{
+public class HomeActivity extends AppCompatActivity implements SwipeRefreshLayout.OnRefreshListener{
 
     private RequestQueue mQueue = null;
     private RecyclerView mRecycler;
+    private SwipeRefreshLayout mRefresh;
     private LinearLayoutManager mLayoutManager = null;
     private ImgurImagesAdapter mAdapter = null;
     private JSONParser mParser = null;
     private List<Images> mList = null;
-
-    public static int mPageCount = 1;
+    public static final String TAG = HomeActivity.class.getSimpleName();
 
     public static String url = "https://api.imgur.com/3/gallery/r/funny/%s";
 
@@ -61,6 +62,9 @@ public class HomeActivity extends AppCompatActivity{
         mParser = new JSONParser();
         mLayoutManager = new LinearLayoutManager(this);
         mRecycler = (RecyclerView) findViewById(R.id.list_funny_images);
+        mRefresh = (SwipeRefreshLayout) findViewById(R.id.swipe_to_refresh);
+        mRefresh.setOnRefreshListener(this);
+        mRefresh.setColorSchemeResources(R.color.colorAccent, R.color.colorPrimary, R.color.colorPrimaryText);
     }
 
     private void loadListView(){
@@ -94,7 +98,6 @@ public class HomeActivity extends AppCompatActivity{
                 try {
                     if(response.getInt("status") == 200)
                         mList = mParser.getImageAttribute(response,mList);
-                    Log.d("asdf","list"+mList);
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -113,8 +116,21 @@ public class HomeActivity extends AppCompatActivity{
     }
 
     private void load_more_images(int currentPage) {
-        getJSON_response(String.format(url,mPageCount),false);
-        mPageCount++;
-        Toast.makeText(HomeActivity.this,"Loaded next page",Toast.LENGTH_SHORT).show();
+        Log.d(TAG,"method invoked for next set of data");
+        Log.d(TAG, "the next url is: "+String.format(url, currentPage));
+        getJSON_response(String.format(url, currentPage), false);
+        //Toast.makeText(HomeActivity.this,"Loaded next page",Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onRefresh() {
+        refreshList();
+    }
+
+    private void refreshList(){
+        mList.clear();
+        getJSON_response(String.format(url, 0), true);
+        if(mRefresh.isRefreshing())
+            mRefresh.setRefreshing(false);
     }
 }

@@ -2,18 +2,20 @@ package com.abhishek.angieslist.pagination;
 
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 
 /**
  * Created by Abhishek on 10/28/2015.
  */
 public abstract class EndlessPaginationOnScroll extends RecyclerView.OnScrollListener {
 
-    private int mPreviousTotal = 0;//Total number of items in the dataset after last load results.
-    private boolean isLoading = true;//set to be true if we last data set is still loading.
     private int mThreshold = 5; //Min number of items to have below current position to load next page.
+    private boolean isLoading = true;//set to be true if the last data set is still loading.
+    private int mPreviousTotal = 0;//Total number of items in the dataset after last load results.
     int firstVisibleItem, visibleItemCount, totalItemCount;
+    public static final String TAG = EndlessPaginationOnScroll.class.getSimpleName();
 
-    private int mCurrentPage = 1;
+    private int mCurrentPage = 0;
 
     private LinearLayoutManager mLinearLayoutManager;
 
@@ -28,6 +30,8 @@ public abstract class EndlessPaginationOnScroll extends RecyclerView.OnScrollLis
         totalItemCount = mLinearLayoutManager.getItemCount();
         firstVisibleItem = mLinearLayoutManager.findFirstVisibleItemPosition();
 
+        Log.d(TAG, "totalItemCount is : " + totalItemCount);
+
         if (isLoading) {
             if (totalItemCount > mPreviousTotal) {
                 isLoading = false;
@@ -40,6 +44,11 @@ public abstract class EndlessPaginationOnScroll extends RecyclerView.OnScrollLis
             loadMore(mCurrentPage);
             isLoading = true;
         }
+        /*if((totalItemCount-visibleItemCount) <= (firstVisibleItem+mThreshold)){
+            mCurrentPage++;
+            Log.d(TAG,"mCurrentPage is: "+mCurrentPage);
+            loadMore(mCurrentPage);
+        }*/
     }
 
     public abstract void loadMore(int mCurrentPage);

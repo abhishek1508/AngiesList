@@ -7,11 +7,18 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="com.abhishek.angieslist.launcher.HomeActivity">
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/list_funny_images"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/swipe_to_refresh"
+        android:layout_height="match_parent"
+        android:layout_width="match_parent">
 
-    </android.support.v7.widget.RecyclerView>
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/list_funny_images"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        </android.support.v7.widget.RecyclerView>
+    </android.support.v4.widget.SwipeRefreshLayout>
+
 
 </RelativeLayout>
