@@ -8,20 +8,17 @@ import android.os.Parcelable;
  */
 public class Images implements Parcelable{
 
-    public boolean mIsNSFW;
     public int mViews;
     public String mImageUrl;
 
     public Images(Parcel in) {
         mImageUrl = in.readString();
         mViews = in.readInt();
-        mIsNSFW = in.readByte()!=0;
     }
 
-    public Images(String url, int views, boolean nsfw){
+    public Images(String url, int views){
         this.mImageUrl = url;
         this.mViews = views;
-        this.mIsNSFW = nsfw;
     }
 
     @Override
@@ -33,7 +30,6 @@ public class Images implements Parcelable{
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(mImageUrl);
         dest.writeInt(mViews);
-        dest.writeByte((byte)(mIsNSFW ? 1:0));
     }
 
     public static final Parcelable.Creator<Images> CREATOR = new Parcelable.Creator<Images>(){

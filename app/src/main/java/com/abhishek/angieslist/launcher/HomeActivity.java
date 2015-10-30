@@ -49,10 +49,14 @@ public class HomeActivity extends AppCompatActivity implements SwipeRefreshLayou
         mQueue = CustomRequestQueueVolley.getInstance(this).getRequestQueue();
         mLayoutManager = new LinearLayoutManager(this);
         mRecycler = (RecyclerView) findViewById(R.id.list_funny_images);
+        //If savedInstanceState is not null then json response is fetched from the list passed
+        //in the bundle and the recycler view is loaded using the list
         if(savedInstanceState!=null) {
             mList = savedInstanceState.getParcelableArrayList("ImageList");
             loadListView();
         }
+        //If savedInstanceState is null then json response is fetched from the api and
+        //loaded in the recycler view
         else{
             getJSON_response(String.format(url, 0), true);
             mList = new ArrayList<>();
@@ -70,9 +74,12 @@ public class HomeActivity extends AppCompatActivity implements SwipeRefreshLayou
         mRefresh.setColorSchemeResources(R.color.colorAccent, R.color.colorPrimary, R.color.colorPrimaryText);
     }
 
+    /*
+    The method retains the object passed in the bundle before onDestroy() is called
+    and same object can be retrieved when the activity starts again due to screen orientation change.
+     */
     @Override
     protected void onSaveInstanceState(Bundle outState) {
-        //super.onSaveInstanceState(outState);
         outState.putParcelableArrayList("ImageList", mList);
     }
 
@@ -110,6 +117,11 @@ public class HomeActivity extends AppCompatActivity implements SwipeRefreshLayou
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
+                /*
+                 If the getJSON_Response method is called for the first time then we need to load the
+                 recycler view from scratch. If it is called as a result of pagination we already have the
+                 view and only need to notify the adapter about the addition of new items in the list.
+                 */
                 if(!isFirstTime)
                     mAdapter.notifyDataSetChanged();
                 else
@@ -137,6 +149,8 @@ public class HomeActivity extends AppCompatActivity implements SwipeRefreshLayou
     }
 
     private void refreshList(){
+        //When swiped to refresh, the app should fetch all the data from starting. Hence the
+        //list is cleared and the initial url is passed to getJSON_response.
         mList.clear();
         getJSON_response(String.format(url, 0), true);
         if(mRefresh.isRefreshing())

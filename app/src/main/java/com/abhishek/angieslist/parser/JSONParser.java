@@ -26,11 +26,12 @@ public class JSONParser {
             mLength = array.length();
             for(int i = 0; i < mLength; i++){
                 JSONObject obj = array.getJSONObject(i);
-                mAttributes = new Images(getImageLinkInfo(obj,Constants.IMAGE_URL),getViewsCountInfo(obj, Constants.VIEWS),getNonNSFWImageInfo(obj, Constants.NSFW));
-                /*mAttributes.mImageUrl = getImageLinkInfo(obj,Constants.IMAGE_URL);
-                mAttributes.mIsNSFW = getNonNSFWImageInfo(obj, Constants.NSFW);
-                mAttributes.mViews = getViewsCountInfo(obj, Constants.VIEWS);*/
-                list.add(mAttributes);
+                boolean nsfw = getNonNSFWImageInfo(obj,Constants.NSFW);
+                 //If the image is not nsfw, then only it is added to the list otherwise not.
+                if(!nsfw) {
+                    mAttributes = new Images(getImageLinkInfo(obj, Constants.IMAGE_URL), getViewsCountInfo(obj, Constants.VIEWS));
+                    list.add(mAttributes);
+                }
             }
         } catch (JSONException e) {
             e.printStackTrace();
