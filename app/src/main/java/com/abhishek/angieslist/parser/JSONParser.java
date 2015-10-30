@@ -7,6 +7,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -19,16 +20,16 @@ public class JSONParser {
     //public List<Images> list;
     int mLength;
 
-    public List<Images> getImageAttribute(JSONObject object,List<Images> list){
+    public ArrayList<Images> getImageAttribute(JSONObject object,ArrayList<Images> list){
         try {
             JSONArray array = object.getJSONArray(Constants.mJSONObjectData);
             mLength = array.length();
             for(int i = 0; i < mLength; i++){
-                mAttributes = new Images();
                 JSONObject obj = array.getJSONObject(i);
-                mAttributes.mImageUrl = getImageLinkInfo(obj,Constants.IMAGE_URL);
+                mAttributes = new Images(getImageLinkInfo(obj,Constants.IMAGE_URL),getViewsCountInfo(obj, Constants.VIEWS),getNonNSFWImageInfo(obj, Constants.NSFW));
+                /*mAttributes.mImageUrl = getImageLinkInfo(obj,Constants.IMAGE_URL);
                 mAttributes.mIsNSFW = getNonNSFWImageInfo(obj, Constants.NSFW);
-                mAttributes.mViews = getViewsCountInfo(obj, Constants.VIEWS);
+                mAttributes.mViews = getViewsCountInfo(obj, Constants.VIEWS);*/
                 list.add(mAttributes);
             }
         } catch (JSONException e) {

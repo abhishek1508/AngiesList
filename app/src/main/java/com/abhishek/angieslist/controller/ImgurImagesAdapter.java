@@ -14,6 +14,7 @@ import com.abhishek.angieslist.utilities.Images;
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.NetworkImageView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -24,9 +25,9 @@ public class ImgurImagesAdapter extends RecyclerView.Adapter<ImgurImagesAdapter.
     private Context mContext;
     private LayoutInflater mInflater;
     private ImageLoader mLoader = null;
-    private List<Images>mList;
+    private ArrayList<Images> mList;
 
-    public ImgurImagesAdapter(Context context,List<Images> list){
+    public ImgurImagesAdapter(Context context,ArrayList<Images> list){
         this.mContext = context;
         this.mInflater = LayoutInflater.from(context);
         this.mList = list;
