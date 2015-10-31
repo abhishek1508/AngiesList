@@ -64,6 +64,11 @@ public class CustomJsonRequest extends Request<JSONObject> {
         listener.onResponse(response);
     }
 
+    /*
+     The method ignores whatever server returns in the "Expires" values.
+     It sets its own time to live and cache expiry time. It stores the json response
+     in the cache and the user can access the json data even in airplane mode for 24 hours.
+     */
     public static Cache.Entry parseIgnoreCacheHeaders(NetworkResponse response) {
         long now = System.currentTimeMillis();
 

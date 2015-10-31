@@ -1,14 +1,17 @@
 package com.abhishek.angieslist.controller;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.abhishek.angieslist.R;
+import com.abhishek.angieslist.launcher.DetailView;
 import com.abhishek.angieslist.networkmanager.CustomRequestQueueVolley;
 import com.abhishek.angieslist.utilities.Images;
 import com.android.volley.toolbox.ImageLoader;
@@ -54,7 +57,7 @@ public class ImgurImagesAdapter extends RecyclerView.Adapter<ImgurImagesAdapter.
         return mList.size();
     }
 
-    public class ImagesViewHolder extends RecyclerView.ViewHolder{
+    public class ImagesViewHolder extends RecyclerView.ViewHolder implements RecyclerView.OnClickListener{
 
         private CircularNetworkImageView mImgurImage;
         private TextView mTitle;
@@ -66,6 +69,15 @@ public class ImgurImagesAdapter extends RecyclerView.Adapter<ImgurImagesAdapter.
             mTitle = (TextView) itemView.findViewById(R.id.text_list_title);
             mViews = (TextView) itemView.findViewById(R.id.text_views_count);
             mUpvotes = (TextView) itemView.findViewById(R.id.text_upvotes_count);
+            itemView.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View v) {
+            Toast.makeText(mContext,"item clicked: "+getAdapterPosition(),Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(mContext,DetailView.class);
+            intent.putExtra("imageURL",mList.get(getAdapterPosition()).mImageUrl);
+            mContext.startActivity(intent);
         }
     }
 }
