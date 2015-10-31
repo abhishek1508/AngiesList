@@ -9,16 +9,20 @@ import android.os.Parcelable;
 public class Images implements Parcelable{
 
     public int mViews;
+    public int mUpvotes;
+    public String mTitle;
     public String mImageUrl;
 
     public Images(Parcel in) {
         mImageUrl = in.readString();
         mViews = in.readInt();
+        mUpvotes = in.readInt();
     }
 
-    public Images(String url, int views){
+    public Images(String url, int views, int upvotes){
         this.mImageUrl = url;
         this.mViews = views;
+        this.mUpvotes = upvotes;
     }
 
     @Override
@@ -30,6 +34,7 @@ public class Images implements Parcelable{
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(mImageUrl);
         dest.writeInt(mViews);
+        dest.writeInt(mUpvotes);
     }
 
     public static final Parcelable.Creator<Images> CREATOR = new Parcelable.Creator<Images>(){

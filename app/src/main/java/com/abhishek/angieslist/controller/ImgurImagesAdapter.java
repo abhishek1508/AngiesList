@@ -47,6 +47,11 @@ public class ImgurImagesAdapter extends RecyclerView.Adapter<ImgurImagesAdapter.
         if(mLoader == null)
             mLoader = CustomRequestQueueVolley.getInstance(mContext).getImageLoader();
         holder.mImgurImage.setImageUrl(mList.get(position).mImageUrl, mLoader);
+        holder.mViews.setText(Integer.toString(mList.get(position).mViews));
+        if(mList.get(position).mUpvotes != 0){
+            holder.mUpvotes.setText(Integer.toString(mList.get(position).mUpvotes));
+            holder.mImageUpvotes.setVisibility(View.VISIBLE);
+        }
     }
 
     /*
@@ -60,15 +65,15 @@ public class ImgurImagesAdapter extends RecyclerView.Adapter<ImgurImagesAdapter.
     public class ImagesViewHolder extends RecyclerView.ViewHolder implements RecyclerView.OnClickListener{
 
         private CircularNetworkImageView mImgurImage;
-        private TextView mTitle;
         private TextView mViews;
         private TextView mUpvotes;
+        private ImageView mImageUpvotes;
         public ImagesViewHolder(View itemView) {
             super(itemView);
             mImgurImage = (CircularNetworkImageView) itemView.findViewById(R.id.image_network_view);
-            mTitle = (TextView) itemView.findViewById(R.id.text_list_title);
             mViews = (TextView) itemView.findViewById(R.id.text_views_count);
             mUpvotes = (TextView) itemView.findViewById(R.id.text_upvotes_count);
+            mImageUpvotes = (ImageView) itemView.findViewById(R.id.image_upvotes);
             itemView.setOnClickListener(this);
         }
 
