@@ -30,25 +30,21 @@ public abstract class EndlessPaginationOnScroll extends RecyclerView.OnScrollLis
         totalItemCount = mLinearLayoutManager.getItemCount();
         firstVisibleItem = mLinearLayoutManager.findFirstVisibleItemPosition();
 
-        Log.d(TAG, "totalItemCount is : " + totalItemCount);
+        Log.d(TAG, "firstVisibleItem is : " + firstVisibleItem);
 
         if (isLoading) {
             if (totalItemCount > mPreviousTotal) {
                 isLoading = false;
                 mPreviousTotal = totalItemCount;
+                Log.d(TAG, "mPreviousTotal is : " + mPreviousTotal);
             }
         }
         if (!isLoading
-                && (totalItemCount - visibleItemCount) <= (firstVisibleItem + mThreshold)) {
+                && (mPreviousTotal - visibleItemCount) <= (firstVisibleItem + mThreshold)) {
             mCurrentPage++;
             loadMore(mCurrentPage);
             isLoading = true;
         }
-        /*if((totalItemCount-visibleItemCount) <= (firstVisibleItem+mThreshold)){
-            mCurrentPage++;
-            Log.d(TAG,"mCurrentPage is: "+mCurrentPage);
-            loadMore(mCurrentPage);
-        }*/
     }
 
     public abstract void loadMore(int mCurrentPage);

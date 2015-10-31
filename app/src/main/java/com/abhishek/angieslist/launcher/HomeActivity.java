@@ -130,7 +130,7 @@ public class HomeActivity extends AppCompatActivity implements SwipeRefreshLayou
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(HomeActivity.this,"error in response",Toast.LENGTH_SHORT).show();
+                Toast.makeText(HomeActivity.this,R.string.error_message,Toast.LENGTH_SHORT).show();
             }
         });
         mQueue.add(req);
@@ -140,7 +140,7 @@ public class HomeActivity extends AppCompatActivity implements SwipeRefreshLayou
         Log.d(TAG,"method invoked for next set of data");
         Log.d(TAG, "the next url is: "+String.format(url, currentPage));
         getJSON_response(String.format(url, currentPage), false);
-        //Toast.makeText(HomeActivity.this,"Loaded next page",Toast.LENGTH_SHORT).show();
+        Toast.makeText(HomeActivity.this,R.string.next_page,Toast.LENGTH_SHORT).show();
     }
 
     @Override

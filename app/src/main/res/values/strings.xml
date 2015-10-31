@@ -3,4 +3,6 @@
     <string name="action_settings">Settings</string>
     <string name="title_activity_home">AngiesList</string>
     <string name="image_title">[Imgur Api Doc](https://api.imgur.com/endpoints/gallery#subreddit)</string>
+    <string name="error_message">error in json response</string>
+    <string name="next_page">Loaded next page </string>
 </resources>
