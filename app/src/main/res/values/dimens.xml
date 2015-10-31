@@ -9,5 +9,5 @@
     <dimen name="image_views_width">30dp</dimen>
     <dimen name="image_views_height">30dp</dimen>
     <dimen name="fab_margin">16dp</dimen>
-    <dimen name="list_text_size">18sp</dimen>
+    <dimen name="list_text_size">16sp</dimen>
 </resources>

@@ -48,6 +48,7 @@ public class ImgurImagesAdapter extends RecyclerView.Adapter<ImgurImagesAdapter.
             mLoader = CustomRequestQueueVolley.getInstance(mContext).getImageLoader();
         holder.mImgurImage.setImageUrl(mList.get(position).mImageUrl, mLoader);
         holder.mViews.setText(Integer.toString(mList.get(position).mViews));
+        //The app shows the number of upvotes only if its count is not 0.
         if(mList.get(position).mUpvotes != 0){
             holder.mUpvotes.setText(Integer.toString(mList.get(position).mUpvotes));
             holder.mImageUpvotes.setVisibility(View.VISIBLE);
@@ -82,6 +83,7 @@ public class ImgurImagesAdapter extends RecyclerView.Adapter<ImgurImagesAdapter.
             Toast.makeText(mContext,"item clicked: "+getAdapterPosition(),Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(mContext,DetailView.class);
             intent.putExtra("imageURL",mList.get(getAdapterPosition()).mImageUrl);
+            intent.putExtra("title",mList.get(getAdapterPosition()).mTitle);
             mContext.startActivity(intent);
         }
     }

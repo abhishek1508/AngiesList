@@ -9,6 +9,7 @@
     <ImageView
         android:id="@+id/detail_image"
         android:layout_width="match_parent"
+        android:scaleType="centerCrop"
         android:layout_height="250dp"/>
     <TextView
         android:id="@+id/detail_text"

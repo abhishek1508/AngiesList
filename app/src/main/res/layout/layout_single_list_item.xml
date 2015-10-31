@@ -26,7 +26,7 @@
         android:layout_toRightOf="@id/image_imgur"
         android:gravity="top"
         android:paddingLeft="@dimen/list_single_item_horizontal_padding"
-        android:text="Imgur"
+        android:text="@string/image_title"
         android:textColor="@color/colorPrimaryText"
         android:textSize="@dimen/list_text_size"
         android:textStyle="bold" />
