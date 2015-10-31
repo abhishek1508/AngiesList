@@ -40,8 +40,9 @@ public class DetailView extends AppCompatActivity {
             @Override
             public void onResponse(Bitmap response) {
                 mImage.setImageBitmap(response);
+                mText.setText(imageTitle);
             }
-        },0,0,null,null);
+        },0,0,null, null);
         mQueue.add(request);
     }
 }
