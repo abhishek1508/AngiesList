@@ -52,6 +52,7 @@ public class ImgurImagesAdapter extends RecyclerView.Adapter<ImgurImagesAdapter.
             mLoader = CustomRequestQueueVolley.getInstance(mContext).getImageLoader();
         holder.mImgurImage.setImageUrl(mList.get(position).mImageUrl, mLoader);
         holder.mViews.setText(Integer.toString(mList.get(position).mViews));
+        holder.mTitle.setText(mList.get(position).mTitle);
         //The app shows the number of upvotes only if its count is not 0.
         if(mList.get(position).mUpvotes != 0){
             holder.mUpvotes.setText(Integer.toString(mList.get(position).mUpvotes));
@@ -72,6 +73,7 @@ public class ImgurImagesAdapter extends RecyclerView.Adapter<ImgurImagesAdapter.
         private CircularNetworkImageView mImgurImage;
         private TextView mViews;
         private TextView mUpvotes;
+        private TextView mTitle;
         private ImageView mImageUpvotes;
 
         public ImagesViewHolder(View itemView) {
@@ -79,6 +81,7 @@ public class ImgurImagesAdapter extends RecyclerView.Adapter<ImgurImagesAdapter.
             mImgurImage = (CircularNetworkImageView) itemView.findViewById(R.id.image_network_view);
             mViews = (TextView) itemView.findViewById(R.id.text_views_count);
             mUpvotes = (TextView) itemView.findViewById(R.id.text_upvotes_count);
+            mTitle = (TextView) itemView.findViewById(R.id.text_list_title);
             mImageUpvotes = (ImageView) itemView.findViewById(R.id.image_upvotes);
             itemView.setOnClickListener(this);
         }
